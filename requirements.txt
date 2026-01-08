@@ -8,4 +8,5 @@ lime
 shap
 networkx
 pyyaml
-jupyter 
+jupyter
+pyvis
