@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #222222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "green", "font": {"color": "white"}, "id": "file_23.docx", "label": "file_23.docx", "shape": "dot", "size": 8, "title": "File: file_23.docx"}, {"color": "red", "font": {"color": "white"}, "id": "user13", "label": "user13", "shape": "dot", "size": 30, "title": "User: user13\u003cbr\u003eAnomaly Score: 1.39\u003cbr\u003eRed Team: Yes"}, {"color": "green", "font": {"color": "white"}, "id": "file_9.docx", "label": "file_9.docx", "shape": "dot", "size": 8, "title": "File: file_9.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_20.docx", "label": "file_20.docx", "shape": "dot", "size": 8, "title": "File: file_20.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_6.docx", "label": "file_6.docx", "shape": "dot", "size": 8, "title": "File: file_6.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_33.docx", "label": "file_33.docx", "shape": "dot", "size": 8, "title": "File: file_33.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_50.docx", "label": "file_50.docx", "shape": "dot", "size": 8, "title": "File: file_50.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_7.docx", "label": "file_7.docx", "shape": "dot", "size": 8, "title": "File: file_7.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_48.docx", "label": "file_48.docx", "shape": "dot", "size": 8, "title": "File: file_48.docx"}, {"color": "red", "font": {"color": "white"}, "id": "user20", "label": "user20", "shape": "dot", "size": 30, "title": "User: user20\u003cbr\u003eAnomaly Score: 0.56\u003cbr\u003eRed Team: Yes"}, {"color": "green", "font": {"color": "white"}, "id": "file_25.docx", "label": "file_25.docx", "shape": "dot", "size": 8, "title": "File: file_25.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_45.docx", "label": "file_45.docx", "shape": "dot", "size": 8, "title": "File: file_45.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_47.docx", "label": "file_47.docx", "shape": "dot", "size": 8, "title": "File: file_47.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_24.docx", "label": "file_24.docx", "shape": "dot", "size": 8, "title": "File: file_24.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_29.docx", "label": "file_29.docx", "shape": "dot", "size": 8, "title": "File: file_29.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_15.docx", "label": "file_15.docx", "shape": "dot", "size": 8, "title": "File: file_15.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_31.docx", "label": "file_31.docx", "shape": "dot", "size": 8, "title": "File: file_31.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_27.docx", "label": "file_27.docx", "shape": "dot", "size": 8, "title": "File: file_27.docx"}, {"color": "red", "font": {"color": "white"}, "id": "user7", "label": "user7", "shape": "dot", "size": 30, "title": "User: user7\u003cbr\u003eAnomaly Score: 0.48\u003cbr\u003eRed Team: Yes"}, {"color": "green", "font": {"color": "white"}, "id": "file_39.docx", "label": "file_39.docx", "shape": "dot", "size": 8, "title": "File: file_39.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_4.docx", "label": "file_4.docx", "shape": "dot", "size": 8, "title": "File: file_4.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_36.docx", "label": "file_36.docx", "shape": "dot", "size": 8, "title": "File: file_36.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_8.docx", "label": "file_8.docx", "shape": "dot", "size": 8, "title": "File: file_8.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_18.docx", "label": "file_18.docx", "shape": "dot", "size": 8, "title": "File: file_18.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_10.docx", "label": "file_10.docx", "shape": "dot", "size": 8, "title": "File: file_10.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_49.docx", "label": "file_49.docx", "shape": "dot", "size": 8, "title": "File: file_49.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_40.docx", "label": "file_40.docx", "shape": "dot", "size": 8, "title": "File: file_40.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_2.docx", "label": "file_2.docx", "shape": "dot", "size": 8, "title": "File: file_2.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_28.docx", "label": "file_28.docx", "shape": "dot", "size": 8, "title": "File: file_28.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_16.docx", "label": "file_16.docx", "shape": "dot", "size": 8, "title": "File: file_16.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_30.docx", "label": "file_30.docx", "shape": "dot", "size": 8, "title": "File: file_30.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_37.docx", "label": "file_37.docx", "shape": "dot", "size": 8, "title": "File: file_37.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_19.docx", "label": "file_19.docx", "shape": "dot", "size": 8, "title": "File: file_19.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_12.docx", "label": "file_12.docx", "shape": "dot", "size": 8, "title": "File: file_12.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_34.docx", "label": "file_34.docx", "shape": "dot", "size": 8, "title": "File: file_34.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_35.docx", "label": "file_35.docx", "shape": "dot", "size": 8, "title": "File: file_35.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_3.docx", "label": "file_3.docx", "shape": "dot", "size": 8, "title": "File: file_3.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_17.docx", "label": "file_17.docx", "shape": "dot", "size": 8, "title": "File: file_17.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_5.docx", "label": "file_5.docx", "shape": "dot", "size": 8, "title": "File: file_5.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_22.docx", "label": "file_22.docx", "shape": "dot", "size": 8, "title": "File: file_22.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_13.docx", "label": "file_13.docx", "shape": "dot", "size": 8, "title": "File: file_13.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_42.docx", "label": "file_42.docx", "shape": "dot", "size": 8, "title": "File: file_42.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_21.docx", "label": "file_21.docx", "shape": "dot", "size": 8, "title": "File: file_21.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_43.docx", "label": "file_43.docx", "shape": "dot", "size": 8, "title": "File: file_43.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_44.docx", "label": "file_44.docx", "shape": "dot", "size": 8, "title": "File: file_44.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_26.docx", "label": "file_26.docx", "shape": "dot", "size": 8, "title": "File: file_26.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_32.docx", "label": "file_32.docx", "shape": "dot", "size": 8, "title": "File: file_32.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_46.docx", "label": "file_46.docx", "shape": "dot", "size": 8, "title": "File: file_46.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_11.docx", "label": "file_11.docx", "shape": "dot", "size": 8, "title": "File: file_11.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_41.docx", "label": "file_41.docx", "shape": "dot", "size": 8, "title": "File: file_41.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_38.docx", "label": "file_38.docx", "shape": "dot", "size": 8, "title": "File: file_38.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_14.docx", "label": "file_14.docx", "shape": "dot", "size": 8, "title": "File: file_14.docx"}, {"color": "green", "font": {"color": "white"}, "id": "file_1.docx", "label": "file_1.docx", "shape": "dot", "size": 8, "title": "File: file_1.docx"}, {"color": "purple", "font": {"color": "white"}, "id": "usb_5", "label": "usb_5", "shape": "dot", "size": 8, "title": "Device: usb_5"}, {"color": "purple", "font": {"color": "white"}, "id": "usb_4", "label": "usb_4", "shape": "dot", "size": 8, "title": "Device: usb_4"}, {"color": "purple", "font": {"color": "white"}, "id": "usb_2", "label": "usb_2", "shape": "dot", "size": 8, "title": "Device: usb_2"}, {"color": "purple", "font": {"color": "white"}, "id": "usb_1", "label": "usb_1", "shape": "dot", "size": 8, "title": "Device: usb_1"}, {"color": "purple", "font": {"color": "white"}, "id": "usb_3", "label": "usb_3", "shape": "dot", "size": 8, "title": "Device: usb_3"}]);
+                  edges = new vis.DataSet([{"color": "gray", "from": "file_23.docx", "to": "user20"}, {"color": "gray", "from": "file_23.docx", "to": "user13"}, {"color": "gray", "from": "file_23.docx", "to": "user7"}, {"color": "gray", "from": "user13", "to": "file_9.docx"}, {"color": "gray", "from": "user13", "to": "file_48.docx"}, {"color": "gray", "from": "user13", "to": "file_22.docx"}, {"color": "gray", "from": "user13", "to": "file_24.docx"}, {"color": "gray", "from": "user13", "to": "file_33.docx"}, {"color": "gray", "from": "user13", "to": "file_40.docx"}, {"color": "gray", "from": "user13", "to": "file_10.docx"}, {"color": "gray", "from": "user13", "to": "file_28.docx"}, {"color": "gray", "from": "user13", "to": "file_25.docx"}, {"color": "gray", "from": "user13", "to": "file_34.docx"}, {"color": "gray", "from": "user13", "to": "file_29.docx"}, {"color": "gray", "from": "user13", "to": "file_12.docx"}, {"color": "gray", "from": "user13", "to": "file_6.docx"}, {"color": "gray", "from": "user13", "to": "file_36.docx"}, {"color": "gray", "from": "user13", "to": "file_5.docx"}, {"color": "gray", "from": "user13", "to": "file_44.docx"}, {"color": "gray", "from": "user13", "to": "file_49.docx"}, {"color": "gray", "from": "user13", "to": "file_46.docx"}, {"color": "gray", "from": "user13", "to": "file_21.docx"}, {"color": "gray", "from": "user13", "to": "file_11.docx"}, {"color": "gray", "from": "user13", "to": "file_18.docx"}, {"color": "gray", "from": "user13", "to": "file_30.docx"}, {"color": "gray", "from": "user13", "to": "file_41.docx"}, {"color": "gray", "from": "user13", "to": "file_50.docx"}, {"color": "gray", "from": "user13", "to": "file_19.docx"}, {"color": "gray", "from": "user13", "to": "file_38.docx"}, {"color": "gray", "from": "user13", "to": "file_32.docx"}, {"color": "gray", "from": "user13", "to": "file_37.docx"}, {"color": "gray", "from": "user13", "to": "file_3.docx"}, {"color": "gray", "from": "user13", "to": "file_1.docx"}, {"color": "gray", "from": "user13", "to": "file_14.docx"}, {"color": "gray", "from": "user13", "to": "file_27.docx"}, {"color": "gray", "from": "user13", "to": "file_13.docx"}, {"color": "gray", "from": "user13", "to": "file_20.docx"}, {"color": "gray", "from": "user13", "to": "file_47.docx"}, {"color": "gray", "from": "user13", "to": "file_43.docx"}, {"color": "gray", "from": "user13", "to": "file_4.docx"}, {"color": "gray", "from": "user13", "to": "file_15.docx"}, {"color": "gray", "from": "user13", "to": "file_2.docx"}, {"color": "gray", "from": "user13", "to": "file_26.docx"}, {"color": "gray", "from": "user13", "to": "file_16.docx"}, {"color": "gray", "from": "user13", "to": "file_31.docx"}, {"color": "gray", "from": "user13", "to": "file_45.docx"}, {"color": "gray", "from": "user13", "to": "file_8.docx"}, {"color": "gray", "from": "user13", "to": "file_17.docx"}, {"color": "purple", "from": "user13", "to": "usb_3"}, {"color": "purple", "from": "user13", "to": "usb_1"}, {"color": "purple", "from": "user13", "to": "usb_2"}, {"color": "purple", "from": "user13", "to": "usb_5"}, {"color": "gray", "from": "file_9.docx", "to": "user20"}, {"color": "gray", "from": "file_9.docx", "to": "user7"}, {"color": "gray", "from": "file_20.docx", "to": "user20"}, {"color": "gray", "from": "file_20.docx", "to": "user7"}, {"color": "gray", "from": "file_6.docx", "to": "user20"}, {"color": "gray", "from": "file_6.docx", "to": "user7"}, {"color": "gray", "from": "file_33.docx", "to": "user20"}, {"color": "gray", "from": "file_33.docx", "to": "user7"}, {"color": "gray", "from": "file_50.docx", "to": "user20"}, {"color": "gray", "from": "file_50.docx", "to": "user7"}, {"color": "gray", "from": "file_7.docx", "to": "user20"}, {"color": "gray", "from": "file_7.docx", "to": "user7"}, {"color": "gray", "from": "file_48.docx", "to": "user7"}, {"color": "gray", "from": "file_48.docx", "to": "user20"}, {"color": "gray", "from": "user20", "to": "file_25.docx"}, {"color": "gray", "from": "user20", "to": "file_30.docx"}, {"color": "gray", "from": "user20", "to": "file_44.docx"}, {"color": "gray", "from": "user20", "to": "file_19.docx"}, {"color": "gray", "from": "user20", "to": "file_22.docx"}, {"color": "gray", "from": "user20", "to": "file_27.docx"}, {"color": "gray", "from": "user20", "to": "file_8.docx"}, {"color": "gray", "from": "user20", "to": "file_31.docx"}, {"color": "gray", "from": "user20", "to": "file_15.docx"}, {"color": "gray", "from": "user20", "to": "file_24.docx"}, {"color": "gray", "from": "user20", "to": "file_39.docx"}, {"color": "gray", "from": "user20", "to": "file_21.docx"}, {"color": "gray", "from": "user20", "to": "file_13.docx"}, {"color": "gray", "from": "user20", "to": "file_41.docx"}, {"color": "gray", "from": "user20", "to": "file_47.docx"}, {"color": "gray", "from": "user20", "to": "file_4.docx"}, {"color": "gray", "from": "user20", "to": "file_16.docx"}, {"color": "gray", "from": "user20", "to": "file_40.docx"}, {"color": "gray", "from": "user20", "to": "file_28.docx"}, {"color": "gray", "from": "user20", "to": "file_10.docx"}, {"color": "gray", "from": "user20", "to": "file_1.docx"}, {"color": "gray", "from": "user20", "to": "file_26.docx"}, {"color": "gray", "from": "user20", "to": "file_34.docx"}, {"color": "gray", "from": "user20", "to": "file_43.docx"}, {"color": "gray", "from": "user20", "to": "file_18.docx"}, {"color": "gray", "from": "user20", "to": "file_3.docx"}, {"color": "gray", "from": "user20", "to": "file_17.docx"}, {"color": "gray", "from": "user20", "to": "file_37.docx"}, {"color": "gray", "from": "user20", "to": "file_45.docx"}, {"color": "gray", "from": "user20", "to": "file_29.docx"}, {"color": "gray", "from": "user20", "to": "file_35.docx"}, {"color": "gray", "from": "user20", "to": "file_49.docx"}, {"color": "gray", "from": "user20", "to": "file_46.docx"}, {"color": "gray", "from": "user20", "to": "file_2.docx"}, {"color": "gray", "from": "user20", "to": "file_38.docx"}, {"color": "gray", "from": "user20", "to": "file_42.docx"}, {"color": "gray", "from": "user20", "to": "file_11.docx"}, {"color": "gray", "from": "user20", "to": "file_14.docx"}, {"color": "gray", "from": "user20", "to": "file_12.docx"}, {"color": "gray", "from": "user20", "to": "file_5.docx"}, {"color": "purple", "from": "user20", "to": "usb_3"}, {"color": "purple", "from": "user20", "to": "usb_4"}, {"color": "purple", "from": "user20", "to": "usb_2"}, {"color": "purple", "from": "user20", "to": "usb_1"}, {"color": "purple", "from": "user20", "to": "usb_5"}, {"color": "gray", "from": "file_25.docx", "to": "user7"}, {"color": "gray", "from": "file_45.docx", "to": "user7"}, {"color": "gray", "from": "file_47.docx", "to": "user7"}, {"color": "gray", "from": "file_24.docx", "to": "user7"}, {"color": "gray", "from": "file_29.docx", "to": "user7"}, {"color": "gray", "from": "file_15.docx", "to": "user7"}, {"color": "gray", "from": "file_31.docx", "to": "user7"}, {"color": "gray", "from": "file_27.docx", "to": "user7"}, {"color": "gray", "from": "user7", "to": "file_39.docx"}, {"color": "gray", "from": "user7", "to": "file_19.docx"}, {"color": "gray", "from": "user7", "to": "file_41.docx"}, {"color": "gray", "from": "user7", "to": "file_38.docx"}, {"color": "gray", "from": "user7", "to": "file_2.docx"}, {"color": "gray", "from": "user7", "to": "file_36.docx"}, {"color": "gray", "from": "user7", "to": "file_8.docx"}, {"color": "gray", "from": "user7", "to": "file_12.docx"}, {"color": "gray", "from": "user7", "to": "file_49.docx"}, {"color": "gray", "from": "user7", "to": "file_46.docx"}, {"color": "gray", "from": "user7", "to": "file_5.docx"}, {"color": "gray", "from": "user7", "to": "file_22.docx"}, {"color": "gray", "from": "user7", "to": "file_4.docx"}, {"color": "gray", "from": "user7", "to": "file_26.docx"}, {"color": "gray", "from": "user7", "to": "file_34.docx"}, {"color": "gray", "from": "user7", "to": "file_14.docx"}, {"color": "gray", "from": "user7", "to": "file_28.docx"}, {"color": "gray", "from": "user7", "to": "file_10.docx"}, {"color": "gray", "from": "user7", "to": "file_16.docx"}, {"color": "gray", "from": "user7", "to": "file_13.docx"}, {"color": "gray", "from": "user7", "to": "file_18.docx"}, {"color": "gray", "from": "user7", "to": "file_11.docx"}, {"color": "gray", "from": "user7", "to": "file_40.docx"}, {"color": "gray", "from": "user7", "to": "file_43.docx"}, {"color": "gray", "from": "user7", "to": "file_44.docx"}, {"color": "gray", "from": "user7", "to": "file_21.docx"}, {"color": "gray", "from": "user7", "to": "file_37.docx"}, {"color": "gray", "from": "user7", "to": "file_32.docx"}, {"color": "gray", "from": "user7", "to": "file_30.docx"}, {"color": "gray", "from": "user7", "to": "file_1.docx"}, {"color": "gray", "from": "user7", "to": "file_35.docx"}, {"color": "purple", "from": "user7", "to": "usb_2"}, {"color": "purple", "from": "user7", "to": "usb_1"}, {"color": "purple", "from": "user7", "to": "usb_3"}, {"color": "purple", "from": "user7", "to": "usb_4"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"physics": {"enabled": true, "stabilization": {"enabled": true, "fit": true, "iterations": 2500, "updateInterval": 50}, "barnesHut": {"gravitationalConstant": -2000, "centralGravity": 0.1, "springLength": 200, "springConstant": 0.01, "damping": 0.85, "avoidOverlap": 1}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
