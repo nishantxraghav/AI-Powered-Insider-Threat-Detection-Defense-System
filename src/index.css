@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #030712;
+  color: #a8c0d6;
+  font-family: 'IBM Plex Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track { background: #060d1f; }
+::-webkit-scrollbar-thumb { background: #1a3a5c; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #00ff9d40; }
+
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+.font-display { font-family: 'Share Tech Mono', monospace; }
+.font-body { font-family: 'IBM Plex Sans', sans-serif; }
+
+.cyber-card {
+  background: linear-gradient(135deg, #0d1f3c 0%, #060d1f 100%);
+  border: 1px solid #1a3a5c;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00ff9d40, transparent);
+}
+
+.neon-green { color: #00ff9d; text-shadow: 0 0 10px #00ff9d60; }
+.neon-red { color: #ff2d55; text-shadow: 0 0 10px #ff2d5560; }
+.neon-blue { color: #0088ff; text-shadow: 0 0 10px #0088ff60; }
+.neon-orange { color: #ff6b00; text-shadow: 0 0 10px #ff6b0060; }
+
+.glow-green { box-shadow: 0 0 20px #00ff9d20, inset 0 0 20px #00ff9d05; }
+.glow-red { box-shadow: 0 0 20px #ff2d5520, inset 0 0 20px #ff2d5505; }
+.glow-blue { box-shadow: 0 0 20px #0088ff20, inset 0 0 20px #0088ff05; }
+
+.bg-grid {
+  background-image: linear-gradient(rgba(0,255,157,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,255,157,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.scan-line {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ff9d20, transparent);
+  animation: scan 8s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes scan {
+  0% { top: -2px; }
+  100% { top: 100vh; }
+}
+
+.severity-high { color: #ff2d55; background: #ff2d5515; border-color: #ff2d5540; }
+.severity-medium { color: #ff6b00; background: #ff6b0015; border-color: #ff6b0040; }
+.severity-low { color: #ffd60a; background: #ffd60a15; border-color: #ffd60a40; }
+
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.recharts-tooltip-wrapper { z-index: 100; }
+
+.risk-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #00ff9d, #ff6b00, #ff2d55);
+  position: relative;
+  overflow: hidden;
+}
+
+.risk-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent 60%, white 100%);
+  opacity: 0.2;
+}
